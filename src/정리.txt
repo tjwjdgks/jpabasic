@@ -1,0 +1,25 @@
+JPA 사용하기 위해서는 설정파일 필요하다 -  persistence.xml
+설정파일 표준 위치 /META-INF/persistence.xml 위치
+
+jpa 동작 방식
+persistence 클래스로 설정 정보(persistence.xml)을 조회하고 EntityManagerFactory를 생성한다. EntityManagerFactory는 EntityManager 생성한다
+
+데이터 베이스 방언
+    Jpa는 특정 데이터베이스에 종속 x,
+    방언 : sql 표준을 지키지 않는 특정 데이터베이스만의 고유한 기능
+    <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> 설정은 h2 방언을 쓰겠다는 것임, jpa h2 방언으로 sql 만든다
+
+javax는 표준을 지키는 것이다 hibernate 구현체 말고 다른 구현체도 공통적으로 적용 가능
+
+EntityManagerFactory 하나만 만든다
+db connection 얻어 종료되는 일괄적인 작업 transaction 마다 만들어야 한다
+엔티티 메니저는 스레드 공유 하면 안된다
+jpa에서 데이터를 변경하는 모든 작업은 트랜잭션 내에서 수행해야 한다
+트랜잭션이 끝나면 EntityManager close, 어플리케이션이 종료되면 EntityManagerFactory close
+
+특정 조건을 사용하고 싶을 때 jpql 을 사용한다
+jpql은 table 대상으로 짜는 것이 아닌 엔티티 객체를 대상으로 쿼리한다 // db 방언에 맞춰서 쿼리를 만든다
+
+*JAXB는 Java Architecture for XML Bind을 뜻한다.
+우리는 Maven 형식으로 프로젝트를 구성할때 등등 프로젝트를 하면서 많은 xml을 사용하는데 xml을 java Object 형식으로 바꿔주는 역할을 하는 기술이 JAXB 이다.
+JAXB는 Java6에서 2.0으로 내장되어 있었고 Java9 에서 모듈화 방식을 사용하면서 vm 옵션을 통해 추가 해서 사용할수 있었으나 Java11 버전부턴 삭제가 되었다고 합니다.
