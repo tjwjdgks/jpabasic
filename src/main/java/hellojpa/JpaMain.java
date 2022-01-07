@@ -18,41 +18,16 @@ public class JpaMain {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try{
-            /*
-            // 저장
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("hello");
-
-            em.persist(member); // 저장된다
-             */
-
-            // member 수정
-            // 엔티티 클래스, Pk // member 찾기
-            /*
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println(findMember.getId() +" " + findMember.getName());
-            findMember.setName("test"); // entity 객체 변경, 수정 쿼리 나간다
-             */
-
-            // member 삭제
-            /*
-            Member findMember = em.find(Member.class, 1L);
-            em.remove(findMember);
-             */
-
-            // 특정 조건을 사용하고 싶을 때 jpql 을 사용한다
-            // jpql은 table 대상으로 짜는 것이 아닌 엔티티 객체를 대상으로 쿼리한다 // db 방언에 맞춰서 쿼리를 만든다
-            List<Member> resultList = em.createQuery("select m from Member as m ", Member.class).getResultList();
+            // 트랜잭션 완료
             transaction.commit();
-
         } catch (Exception e){
+            // 에러의 경우 트랜잭션 롤백
             transaction.rollback();
         } finally {
             // data connection을 물고 있으므로 꼭 닫기
             em.close();
         }
-
+        // 어플리케이션 종료될때 엔티티메니저팩토리 종료
         emf.close();
     }
 }
