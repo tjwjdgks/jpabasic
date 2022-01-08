@@ -13,11 +13,12 @@ public class Order {
     @Column(name = "ORDERS_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToOne
+    // order와 delivery의 라이프 사이클을 맞춘다
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
@@ -25,8 +26,8 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    @OneToMany(mappedBy = "order")
+    // order와 orederItem의 라이프 사이클 맞춘다
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
 
