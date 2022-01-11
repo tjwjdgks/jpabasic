@@ -5,12 +5,23 @@ import javax.persistence.Embedded;
 import java.util.Objects;
 
 // 비즈니스 로직을 만들 수 있다
+// 불변 객체여야 한다
 @Embeddable
 public class Address {
 
     private String city;
     private String street;
     private String zipcode;
+
+    protected Address() {
+
+    }
+
+    public Address(String city, String street, String zipcode) {
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
 
     public String getCity() {
         return city;

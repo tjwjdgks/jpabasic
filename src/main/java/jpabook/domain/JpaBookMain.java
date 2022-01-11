@@ -21,3 +21,4 @@ public class JpaBookMain {
         emf.close();
     }
 }
+
